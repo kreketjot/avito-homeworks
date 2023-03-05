@@ -11,7 +11,7 @@ async function bootstrap() {
     defaultVersion: '1',
   });
   if (PORT === undefined) {
-    throw new Error('PORT is undefined');
+    throw 'PORT is undefined';
   }
   await app.listen(PORT);
 }
