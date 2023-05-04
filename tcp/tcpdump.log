@@ -1,0 +1,14 @@
+15:08:04.242832 lo    In  IP localhost.49224 > localhost.arepa-cas: Flags [S], seq 513122567, win 65495, options [mss 65495,sackOK,TS val 2044942832 ecr 0,nop,wscale 7], length 0
+15:08:04.242851 lo    In  IP localhost.arepa-cas > localhost.49224: Flags [S.], seq 729864388, ack 513122568, win 65483, options [mss 65495,sackOK,TS val 2044942832 ecr 2044942832,nop,wscale 7], length 0
+15:08:04.242864 lo    In  IP localhost.49224 > localhost.arepa-cas: Flags [.], ack 1, win 512, options [nop,nop,TS val 2044942832 ecr 2044942832], length 0
+15:08:10.187102 lo    In  IP localhost.49224 > localhost.arepa-cas: Flags [P.], seq 1:8, ack 1, win 512, options [nop,nop,TS val 2044948776 ecr 2044942832], length 7
+15:08:10.187174 lo    In  IP localhost.arepa-cas > localhost.49224: Flags [.], ack 8, win 512, options [nop,nop,TS val 2044948776 ecr 2044948776], length 0
+15:08:10.194471 lo    In  IP localhost.arepa-cas > localhost.49224: Flags [P.], seq 1:5, ack 8, win 512, options [nop,nop,TS val 2044948783 ecr 2044948776], length 4
+15:08:10.194553 lo    In  IP localhost.49224 > localhost.arepa-cas: Flags [.], ack 5, win 512, options [nop,nop,TS val 2044948783 ecr 2044948783], length 0
+15:08:18.077640 lo    In  IP localhost.49224 > localhost.arepa-cas: Flags [P.], seq 8:15, ack 5, win 512, options [nop,nop,TS val 2044956666 ecr 2044948783], length 7
+15:08:18.080392 lo    In  IP localhost.arepa-cas > localhost.49224: Flags [P.], seq 5:10, ack 15, win 512, options [nop,nop,TS val 2044956669 ecr 2044956666], length 5
+15:08:18.080511 lo    In  IP localhost.49224 > localhost.arepa-cas: Flags [.], ack 10, win 512, options [nop,nop,TS val 2044956669 ecr 2044956669], length 0
+15:08:18.091090 lo    In  IP localhost.49224 > localhost.arepa-cas: Flags [F.], seq 15, ack 10, win 512, options [nop,nop,TS val 2044956680 ecr 2044956669], length 0
+15:08:18.099443 lo    In  IP localhost.arepa-cas > localhost.49224: Flags [F.], seq 10, ack 16, win 512, options [nop,nop,TS val 2044956688 ecr 2044956680], length 0
+15:08:18.099542 lo    In  IP localhost.49224 > localhost.arepa-cas: Flags [.], ack 11, win 512, options [nop,nop,TS val 2044956688 ecr 2044956688], length 0
+
