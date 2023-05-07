@@ -1,0 +1,15 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package ru.kreketjot.auth;
+
+message CheckAuthorizationRequest {
+  string name = 1;
+}
+
+message CheckAuthorizationResponse {
+  bool isAuthorized = 1;
+}
+
+service AuthService {
+  rpc checkAuthorization(CheckAuthorizationRequest) returns (CheckAuthorizationResponse);
+}
