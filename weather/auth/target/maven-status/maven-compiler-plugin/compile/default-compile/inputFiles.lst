@@ -1,0 +1,10 @@
+/home/av/workspace/avito-homeworks/auth/src/main/java/ru/kreketjot/AuthorizedUsers.java
+/home/av/workspace/avito-homeworks/auth/src/main/java/ru/kreketjot/AuthServiceImpl.java
+/home/av/workspace/avito-homeworks/auth/target/generated-sources/protobuf/java/ru/kreketjot/auth/AuthServiceOuterClass.java
+/home/av/workspace/avito-homeworks/auth/target/generated-sources/protobuf/java/ru/kreketjot/auth/CheckAuthorizationRequest.java
+/home/av/workspace/avito-homeworks/auth/target/generated-sources/protobuf/grpc-java/ru/kreketjot/auth/AuthServiceGrpc.java
+/home/av/workspace/avito-homeworks/auth/src/main/java/ru/kreketjot/IAuthorizedUsers.java
+/home/av/workspace/avito-homeworks/auth/target/generated-sources/protobuf/java/ru/kreketjot/auth/CheckAuthorizationRequestOrBuilder.java
+/home/av/workspace/avito-homeworks/auth/target/generated-sources/protobuf/java/ru/kreketjot/auth/CheckAuthorizationResponseOrBuilder.java
+/home/av/workspace/avito-homeworks/auth/src/main/java/ru/kreketjot/GrpcServer.java
+/home/av/workspace/avito-homeworks/auth/target/generated-sources/protobuf/java/ru/kreketjot/auth/CheckAuthorizationResponse.java

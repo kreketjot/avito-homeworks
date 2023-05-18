@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: app
+    networks:
+      - weather-network
+    ports:
+      - 3000:3000
+  auth:
+    build:
+      context: auth
+    networks:
+      - weather-network
+networks:
+  weather-network:
+    driver: bridge
