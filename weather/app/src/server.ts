@@ -9,9 +9,12 @@ import { ForecastService } from './forecast/forecast.service'
 
 dotenv.config()
 
-const { SERVER_PORT } = process.env
-if (SERVER_PORT === undefined) {
-  throw 'No server port'
+const { HOST, PORT } = process.env
+if (HOST === undefined) {
+  throw 'No host'
+}
+if (PORT === undefined) {
+  throw 'No port'
 }
 
 const appService = new AppService(new GeoService(), new ForecastService())
@@ -30,7 +33,7 @@ server.register(forecast, {
   authServiceClient,
 })
 
-server.listen({ port: parseInt(SERVER_PORT) }, (err) => {
+server.listen({ host: HOST, port: parseInt(PORT) }, (err) => {
   if (err) {
     server.log.error(err)
     process.exit(1)

@@ -9,8 +9,8 @@ RUN mvn -f /home/app/pom.xml clean package
 #
 # Package stage
 #
-FROM openjdk
+FROM openjdk:17-alpine
 WORKDIR /app
 COPY --from=build /home/app .
+CMD ["java","-cp","target/auth-1.0-SNAPSHOT-jar-with-dependencies.jar","ru.kreketjot.GrpcServer"]
 EXPOSE 3002 
-CMD ["java","-cp","target/auth-1.0-SNAPSHOT-jar-with-dependencies.jar","src/main/java/ru/kreketjot/GrpcServer.java"]

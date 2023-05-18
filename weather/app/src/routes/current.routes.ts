@@ -17,7 +17,7 @@ export const current: FastifyPluginCallback<{
       reply.statusCode = 403
       reply.send({
         message: `${username} is not authorized`,
-        error: 'Not Authorized',
+        error: 'Forbidden',
         statusCode: 403,
       })
     }

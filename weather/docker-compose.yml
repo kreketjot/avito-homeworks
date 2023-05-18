@@ -4,13 +4,22 @@ services:
   app:
     build:
       context: app
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3000
+      - AUTH_HOST=auth
+      - AUTH_PORT=3002
     networks:
       - weather-network
     ports:
       - 3000:3000
+    depends_on:
+      - auth
   auth:
     build:
       context: auth
+    environment:
+      - PORT=3002
     networks:
       - weather-network
 networks:

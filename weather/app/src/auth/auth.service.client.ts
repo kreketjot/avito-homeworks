@@ -7,14 +7,17 @@ export class AuthService {
 
   constructor() {
     dotenv.config()
+    let { AUTH_HOST, AUTH_PORT } = process.env
 
-    const { AUTH_PORT } = process.env
+    if (AUTH_HOST === undefined) {
+      throw 'No auth host'
+    }
     if (AUTH_PORT === undefined) {
       throw 'No auth port'
     }
 
     this.client = new AuthServiceClient(
-      `localhost:${AUTH_PORT}`,
+      `${AUTH_HOST}:${AUTH_PORT}`,
       grpc.credentials.createInsecure(),
     )
   }
