@@ -12,7 +12,7 @@ http://localhost:3000/v1/current?city=Moscow
 
 http://localhost:3000/v1/forecast?city=Moscow&dt=2023-03-25T09:00:00
 
-GET запросы
+GET запросы с заголовком `Own-Auth-UserName` и значением `Andrey`
 
 Ответы типа: `{"city":"Moscow","unit":"celsius","temperature":5.9}`
 
