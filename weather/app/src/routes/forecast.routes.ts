@@ -1,6 +1,6 @@
 import { FastifyPluginCallback } from 'fastify'
 import { AppService } from '../app.service'
-import { ForecastReq } from '../dto/forecast-req.dto'
+import { GetForecastReq } from '../dto/get-forecast-req.dto'
 import { AuthService } from '../auth/auth.service.client'
 
 export const forecast: FastifyPluginCallback<{
@@ -12,7 +12,7 @@ export const forecast: FastifyPluginCallback<{
     console.log({ username })
     const isAuthorized = await authServiceClient.checkAuthorization(username)
     if (isAuthorized) {
-      return appService.getForecast(request.query as ForecastReq)
+      return appService.getForecast(request.query as GetForecastReq)
     } else {
       reply.statusCode = 403
       reply.send({

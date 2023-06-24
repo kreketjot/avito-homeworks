@@ -1,10 +1,12 @@
 import { parseISO } from 'date-fns'
 import { GeoService } from './geo/geo.service'
 import { ForecastService } from './forecast/forecast.service'
-import { CurrentReq } from './dto/current-req.dto'
-import { CurrentRes } from './dto/current-res.dto'
-import { ForecastReq } from './dto/forecast-req.dto'
-import { ForecastRes } from './dto/forecast-res.dto'
+import { GetCurrentReq } from './dto/get-current-req.dto'
+import { GetCurrentRes } from './dto/get-current-res.dto'
+import { GetForecastReq } from './dto/get-forecast-req.dto'
+import { GetForecastRes } from './dto/get-forecast-res.dto'
+import { PutCurrentReq } from './dto/put-current-req.dto'
+import { PutCurrentRes } from './dto/put-current-res.dto'
 
 export class AppService {
   constructor(
@@ -15,7 +17,7 @@ export class AppService {
     this.forecastService = forecastService
   }
 
-  async getCurrent(dto: CurrentReq): Promise<CurrentRes> {
+  async getCurrent(dto: GetCurrentReq): Promise<GetCurrentRes> {
     if (dto.city === undefined) {
       throw 'Missing "city" query parameter'
     }
@@ -29,7 +31,7 @@ export class AppService {
     }
   }
 
-  async getForecast(dto: ForecastReq): Promise<ForecastRes> {
+  async getForecast(dto: GetForecastReq): Promise<GetForecastRes> {
     if (dto.city === undefined) {
       throw 'Missing "city" query parameter'
     }
@@ -47,6 +49,24 @@ export class AppService {
       city: dto.city,
       unit: 'celsius',
       temperature,
+    }
+  }
+
+  async setCurrent(dto: PutCurrentReq): Promise<PutCurrentRes> {
+    if (dto.city === undefined) {
+      throw 'Missing "city" query parameter'
+    }
+    if (dto.temperature === undefined) {
+      throw 'Missing "temperature" query parameter'
+    }
+
+    const coords = await this.geoService.getCoords(dto.city)
+    const hasCached = await this.forecastService.setTemperature(
+      coords,
+      dto.temperature,
+    )
+    return {
+      ok: hasCached,
     }
   }
 }

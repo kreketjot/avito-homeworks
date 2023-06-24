@@ -5,6 +5,10 @@ import {
   ForecastFutureResponse,
 } from './forecast.types'
 import { Coords } from '../app.types'
+import redis from '../redis'
+import { stringifyCoords } from '../geo/geo.utils'
+
+const TEN_MINUTES = 10 * 60
 
 export class ForecastService {
   private readonly URL: string
@@ -20,9 +24,45 @@ export class ForecastService {
   async getTemperature(coords: Coords, datetime?: Date): Promise<number> {
     console.log(`Get temperature: ${JSON.stringify({ coords, datetime })}`)
 
-    return datetime !== undefined
-      ? this.fetchFutureForecast(coords, datetime)
-      : this.fetchCurrentForecast(coords)
+    const cacheKey = `forecast:${stringifyCoords(coords)}${
+      datetime !== undefined ? `:${datetime}` : ''
+    }`
+    const cachedValue = await redis.get(cacheKey)
+    if (cachedValue !== null) {
+      console.log('return cached value', cacheKey, cachedValue)
+      return +cachedValue
+    }
+
+    const temperaturePromise =
+      datetime !== undefined
+        ? this.fetchFutureForecast(coords, datetime)
+        : this.fetchCurrentForecast(coords)
+
+    return temperaturePromise.then((temperature) => {
+      console.log('store temperature in cache', cacheKey, temperature)
+      redis.set(cacheKey, temperature, { EX: TEN_MINUTES })
+      return temperature
+    })
+  }
+
+  async setTemperature(
+    coords: Coords,
+    temperature: number,
+    datetime?: Date,
+  ): Promise<boolean> {
+    console.log(
+      `Set temperature: ${JSON.stringify({ coords, temperature, datetime })}`,
+    )
+
+    const cacheKey = `forecast:${stringifyCoords(coords)}${
+      datetime !== undefined ? `:${datetime}` : ''
+    }`
+
+    console.log('store temperature in cache', cacheKey, temperature)
+    return redis
+      .set(cacheKey, temperature, { EX: TEN_MINUTES })
+      .then(() => true)
+      .catch(() => false)
   }
 
   private async fetchCurrentForecast(coords: Coords): Promise<number> {

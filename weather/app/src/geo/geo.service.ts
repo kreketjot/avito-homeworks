@@ -1,6 +1,10 @@
 import axios from 'axios'
 import { CityResponse } from './geo.types'
 import { Coords } from '../app.types'
+import redis from '../redis'
+import { parseCoords, stringifyCoords } from './geo.utils'
+
+const ONE_WEEK = 7 * 24 * 60 * 60
 
 export class GeoService {
   private readonly URL: string
@@ -23,7 +27,14 @@ export class GeoService {
   async getCoords(city: string): Promise<Coords> {
     console.log(`Get coords by city "${city}"`)
 
-    const coords = axios
+    const cacheKey = `geo:${city}`
+    const cachedValue = await redis.get(cacheKey)
+    if (cachedValue !== null) {
+      console.log('return cached value', cacheKey, cachedValue)
+      return parseCoords(cachedValue)
+    }
+
+    const coordsPromise = axios
       .get<CityResponse[]>(this.URL, {
         params: {
           q: city,
@@ -32,12 +43,18 @@ export class GeoService {
       })
       .then((res) => res.data)
       .then((data) => this.mapResponseToCoords(data, city))
+      .then((coords) => {
+        const stringifiedCoords = stringifyCoords(coords)
+        console.log('store coords in cache', cacheKey, stringifiedCoords)
+        redis.set(cacheKey, stringifiedCoords, { EX: ONE_WEEK })
+        return coords
+      })
       .catch((error) => {
         console.error(error)
         throw 'An error occurred while getting coords by city'
       })
 
-    return coords
+    return coordsPromise
   }
 
   private mapResponseToCoords(cities: CityResponse[], city: string): Coords {
